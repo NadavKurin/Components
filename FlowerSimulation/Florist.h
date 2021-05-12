@@ -3,12 +3,11 @@
 #include <vector>
 
 #include "Person.h"
-#include "Wholesaler.h"
 #include "FlowerArranger.h"
 #include "DeliveryPerson.h"
 
 class Person;
-
+class Wholesaler;
 class Florist : public Person
 {
 private:
