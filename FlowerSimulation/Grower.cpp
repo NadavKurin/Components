@@ -10,9 +10,9 @@ Grower::Grower(std::string name, Gardener* g): Person(name)
 
 FlowersBouquet* Grower::prepareOrder(std::vector<std::string> order)
 {
-	std::cout << getName() << " forwards the request to " << gardener->getName() << std::endl;
+	std::cout << getName() << " forwards the request to " << gardener->getName() << "." << std::endl;
 	FlowersBouquet* flowers =  gardener->prepareBouquet(order);
-	std::cout << gardener->getName() << " returns flowers to " << getName() << std::endl;
+	std::cout << gardener->getName() << " returns flowers to " << getName() << "." << std::endl;
 	return flowers;
 }
 

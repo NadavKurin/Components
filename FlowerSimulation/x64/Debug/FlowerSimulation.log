@@ -1,19 +1,4 @@
-﻿  DeliveryPerson.cpp
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Person.h(16,20): error C2061: syntax error: identifier 'FlowersBouquet'
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\DeliveryPerson.cpp(13,25): error C2660: 'Person::acceptFlower': function does not take 1 arguments
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Person.h(16,7): message : see declaration of 'Person::acceptFlower'
-  Florist.cpp
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Person.h(16,20): error C2061: syntax error: identifier 'FlowersBouquet'
-  FlowerArranger.cpp
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Person.h(16,20): error C2061: syntax error: identifier 'FlowersBouquet'
-  FlowerSimulation.cpp
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Person.h(16,20): error C2061: syntax error: identifier 'FlowersBouquet'
-  Gardener.cpp
+﻿  Gardener.cpp
   Person.cpp
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Person.h(16,20): error C2061: syntax error: identifier 'FlowersBouquet'
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Person.cpp(20,1): error C2511: 'void Person::acceptFlower(FlowersBouquet *)': overloaded member function not found in 'Person'
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Florist.h(9): message : see declaration of 'Person'
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Person.cpp(26,15): error C2352: 'Person::getName': illegal call of non-static member function
-C:\Users\User\Desktop\GIT\FlowerSimulation\FlowerSimulation\Person.cpp(8): message : see declaration of 'Person::getName'
-  Wholesaler.cpp
   Generating Code...
+  FlowerSimulation.vcxproj -> C:\Users\User\Desktop\GIT\FlowerSimulation\x64\Debug\FlowerSimulation.exe

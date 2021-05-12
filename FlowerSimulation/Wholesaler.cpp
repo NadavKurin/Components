@@ -9,9 +9,9 @@ Wholesaler::Wholesaler(std::string name, Grower* g) : Person(name)
 }
 FlowersBouquet* Wholesaler::acceptOrder(std::vector<std::string> order)
 {
-	std::cout << getName() << " forwards the request to " << grower->getName() << std::endl;
+	std::cout << getName() << " forwards the request to " << grower->getName() << "." << std::endl;
 	FlowersBouquet* flowers = grower->prepareOrder(order);
-	std::cout << grower->getName() << " returns flowers to " << getName() << std::endl;
+	std::cout << grower->getName() << " returns flowers to " << getName() << "." << std::endl;
 	return flowers;
 }
 std::string Wholesaler::getName() {

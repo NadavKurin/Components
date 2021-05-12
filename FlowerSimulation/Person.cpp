@@ -17,6 +17,7 @@ void Person::orderFlowers(Florist* florist, Person* person, std::vector<std::str
 	{
 		flowers = flowers + elem + ", ";
 	}
+	flowers = flowers.substr(0, flowers.size() - 2) +".";
 	std::cout << getName() << " orders flowers to " << person->getName() << " from " << florist->getName() <<":" << flowers << std::endl;
 	florist->acceptOrder(person, order);
 }
@@ -28,5 +29,6 @@ void Person::acceptFlower(FlowersBouquet* flowersBouquet)
 	{
 		output = output + elem + ", ";
 	}
+	output = output.substr(0, output.size() - 2) + ".";
 	std::cout << getName() <<" accepts the flowers: " << output << std::endl;
 }
