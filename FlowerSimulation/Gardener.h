@@ -9,7 +9,7 @@ class Gardener : public Person
 {
 private:
 public:
-	Gardener();
+	Gardener(std::string name);
 	FlowersBouquet* prepareBouquet(std::vector<std::string> order);
 	std::string getName();
 };

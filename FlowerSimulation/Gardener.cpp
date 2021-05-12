@@ -2,7 +2,7 @@
 
 #include "Person.h"
 
-Gardener::Gardener() : Person(name)
+Gardener::Gardener(std::string name) : Person(name)
 {
 }
 

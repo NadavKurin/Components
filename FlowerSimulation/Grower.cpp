@@ -3,7 +3,7 @@
 #include "Gardener.h"
 #include "Person.h"
 
-Grower::Grower(Gardener* g): Person(name)
+Grower::Grower(std::string name, Gardener* g): Person(name)
 {
 	gardener = g;
 }

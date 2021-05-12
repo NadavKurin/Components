@@ -3,7 +3,7 @@
 #include "Grower.h"
 
 
-Wholesaler::Wholesaler(Grower* g) : Person(name)
+Wholesaler::Wholesaler(std::string name, Grower* g) : Person(name)
 {
 	grower = g;
 }
