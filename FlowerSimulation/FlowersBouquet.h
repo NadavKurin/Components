@@ -12,4 +12,5 @@ private:
 public:
     FlowersBouquet(std::vector<std::string>);
     void arrange();
+    std::vector<std::string> getBouquet();
 };

@@ -12,7 +12,7 @@ private:
 	Gardener* gardener;
 public:
 	Grower(Gardener* g);
-	FlowersBouquet prepareOrder(std::vector< std::string>);
+	FlowersBouquet* prepareOrder(std::vector< std::string>);
 	std::string getName();
 };
 

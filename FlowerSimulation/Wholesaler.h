@@ -1,4 +1,5 @@
 #pragma once
+#include "FlowersBouquet.h"
 #include "Person.h"
 
 class Grower;
@@ -9,7 +10,7 @@ private:
 	Grower* grower;
 public:
 	Wholesaler(Grower* g);
-	void acceptOrder(std::vector<std::string> order);
+	FlowersBouquet* acceptOrder(std::vector<std::string> order);
 	std::string getName();
 };
 
