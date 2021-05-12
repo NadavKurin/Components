@@ -9,7 +9,7 @@ class Wholesaler : public Person
 private:
 	Grower* grower;
 public:
-	Wholesaler(Grower* g);
+	Wholesaler(std::string name, Grower* g);
 	FlowersBouquet* acceptOrder(std::vector<std::string> order);
 	std::string getName();
 };
