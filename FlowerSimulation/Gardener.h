@@ -10,7 +10,7 @@ class Gardener : public Person
 private:
 public:
 	Gardener();
-	FlowersBouquet prepareBouquet(std::vector<std::string> order);
+	FlowersBouquet* prepareBouquet(std::vector<std::string> order);
 	std::string getName();
 };
 
