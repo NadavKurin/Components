@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 
+#include "FlowersBouquet.h"
+
 class Florist; // forward declaration
 class Person
 

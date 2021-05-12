@@ -1,11 +1,8 @@
 #pragma once 
 #include <string>
 #include <vector>
-
-#include "Person.h"
 #include "FlowersBouquet.h"
-
-class Person;
+#include "Person.h"
 
 class DeliveryPerson : public Person
 {
