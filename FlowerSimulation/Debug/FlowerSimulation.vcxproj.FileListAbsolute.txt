@@ -1,0 +1,2 @@
+C:\Users\nadav\source\repos\FlowerSimulation\Debug\FlowerSimulation.exe.lastcodeanalysissucceeded
+C:\Users\nadav\source\repos\FlowerSimulation\FlowerSimulation\Debug\NativeCodeAnalysis.read.1.tlog
