@@ -9,11 +9,19 @@ namespace Components
     class BitwiseOrGate : BitwiseTwoInputGate
     {
         //your code here
-
+        private OrGate[] orGates;
         public BitwiseOrGate(int iSize)
             : base(iSize)
         {
             //your code here
+            orGates = new OrGate[iSize];
+            for (int i = 0; i < iSize; i++)
+            {
+                orGates[i] = new OrGate();
+                orGates[i].ConnectInput1(Input1[i]);
+                orGates[i].ConnectInput2(Input2[i]);
+                Output[i].ConnectInput(orGates[i].Output);
+            }
         }
 
         //an implementation of the ToString method is called, e.g. when we use Console.WriteLine(or)
@@ -25,7 +33,40 @@ namespace Components
 
         public override bool TestGate()
         {
-            throw new NotImplementedException();
+            //Set all wires to 0
+            for (int i = 0; i < base.Size; i++)
+            {
+                Input1[i].Value = 0;
+                Input2[i].Value = 0;
+                if (Output[i].Value != 0)
+                    return false;
+            }
+
+            //Set all wires to 1
+            for (int i = 0; i < base.Size; i++)
+            {
+                Input1[i].Value = 1;
+                Input2[i].Value = 1;
+                if (Output[i].Value != 1)
+                    return false;
+            }
+            //Set all x_i to 1 and all y_i to 0
+            for (int i = 0; i < base.Size; i++)
+            {
+                Input1[i].Value = 1;
+                Input2[i].Value = 0;
+                if (Output[i].Value != 1)
+                    return false;
+            }
+            //Set all x_i to 0 and all y_i to 1
+            for (int i = 0; i < base.Size; i++)
+            {
+                Input1[i].Value = 0;
+                Input2[i].Value = 1;
+                if (Output[i].Value != 1)
+                    return false;
+            }
+            return true;
         }
     }
 }

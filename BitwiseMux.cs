@@ -11,12 +11,21 @@ namespace Components
         public Wire ControlInput { get; private set; }
 
         //your code here
-
+        private MuxGate[] muxGates;
         public BitwiseMux(int iSize)
             : base(iSize)
         {
             ControlInput = new Wire();
             //your code here
+            muxGates = new MuxGate[iSize];
+            for (int i = 0; i < iSize; i++)
+            {
+                muxGates[i] = new MuxGate();
+                muxGates[i].ConnectInput1(Input1[i]);
+                muxGates[i].ConnectInput2(Input2[i]);
+                muxGates[i].ConnectControl(ControlInput);
+                Output[i].ConnectInput(muxGates[i].Output);
+            }
         }
 
         public void ConnectControl(Wire wControl)
@@ -36,7 +45,54 @@ namespace Components
 
         public override bool TestGate()
         {
-            throw new NotImplementedException();
+            //Set all wires to 0
+            for (int i = 0; i < base.Size; i++)
+            {
+                Input1[i].Value = 0;
+                Input2[i].Value = 0;
+                ControlInput.Value = 0;
+                if (Output[i].Value != 0)
+                    return false;
+            }
+
+            //Set x_i to 1 and y_i to 0 control 0
+            for (int i = 0; i < base.Size; i++)
+            {
+                Input1[i].Value = 1;
+                Input2[i].Value = 0;
+                ControlInput.Value = 0;
+                if (Output[i].Value != 1)
+                    return false;
+            }
+            //Set x_i to 1 and y_i to 0 control 1
+            for (int i = 0; i < base.Size; i++)
+            {
+                Input1[i].Value = 1;
+                Input2[i].Value = 0;
+                ControlInput.Value = 1;
+                if (Output[i].Value != 0)
+                    return false;
+            }
+
+            //Set x_i to 0 and y_i to 1 control 0
+            for (int i = 0; i < base.Size; i++)
+            {
+                Input1[i].Value = 0;
+                Input2[i].Value = 1;
+                ControlInput.Value = 0;
+                if (Output[i].Value != 0)
+                    return false;
+            }
+            //Set x_i to 0 and y_i to 1 control 0
+            for (int i = 0; i < base.Size; i++)
+            {
+                Input1[i].Value = 0;
+                Input2[i].Value = 1;
+                ControlInput.Value = 1;
+                if (Output[i].Value != 1)
+                    return false;
+            }
+            return true;
         }
     }
 }
