@@ -10,7 +10,13 @@ namespace Components
         static void Main(string[] args)
         {
             //This is an example of a testing code that you should run for all the gates that you create
-
+            Boolean[] fixedSizeBinaryArray = new Boolean[3];
+            for(int i = 0; i < 7; i++)
+            {
+                PrintBoolArr(fixedSizeBinaryArray);
+                IncrementBinaryArrays(fixedSizeBinaryArray);
+            }
+            PrintBoolArr(fixedSizeBinaryArray);
             //Create a gate
             AndGate and = new AndGate();
             Console.WriteLine(and + "");
@@ -172,14 +178,74 @@ namespace Components
             NAndGate.Corrupt = false;
 
 
-            //BitwiseMultiwayMux m = new BitwiseMultiwayMux(7, 3);
+            //Test HaldAdder gate
+            HalfAdder halfAdder = new HalfAdder();
+            Console.WriteLine(halfAdder + "");
+            //Test that the unit testing works properly
+            if (!halfAdder.TestGate())
+                Console.WriteLine("bugbug1");
+
+            //Now we ruin the nand gates that are used in all other gates. The gate should not work properly after this.
+            NAndGate.Corrupt = true;
+            if (halfAdder.TestGate())
+                Console.WriteLine("bugbug");
+            NAndGate.Corrupt = false;
+
+
+
+            //Test BitwiseMultiwayMux gate
+            BitwiseMultiwayMux bitwiseMultiwayMux = new BitwiseMultiwayMux(3, 3);
+            //Test that the unit testing works properly
+            if (!bitwiseMultiwayMux.TestGate())
+                Console.WriteLine("bugbug1");
+
+            //Now we ruin the nand gates that are used in all other gates. The gate should not work properly after this.
+            //NAndGate.Corrupt = true;
+            //if (bitwiseMultiwayMux.TestGate())
+            //    Console.WriteLine("bugbug");
+            //NAndGate.Corrupt = false;
+
 
 
             Console.WriteLine("done");
             Console.ReadLine();
-;
-
 
         }
+
+        static void IncrementBinaryArrays(Boolean[] FixedSizeBinaryArray)
+         {
+             Boolean isChanged = false;
+             int index = FixedSizeBinaryArray.Length - 1;
+             while (!isChanged)
+             {
+                 if (!FixedSizeBinaryArray[index])
+                 {
+                     FixedSizeBinaryArray[index] = !FixedSizeBinaryArray[index];
+                     isChanged = true;
+                 }
+                 else
+                 {
+                     while (FixedSizeBinaryArray[index])
+                     {
+                         FixedSizeBinaryArray[index] = !FixedSizeBinaryArray[index];
+                         index--;
+                     }
+                     FixedSizeBinaryArray[index] = !FixedSizeBinaryArray[index];
+                     isChanged = true;
+                 }
+             }
+         }
+
+         static void PrintBoolArr(Boolean[] arr)
+         {
+             for(int i = 0; i < arr.Length; i++)
+             {
+                 if (arr[i])
+                     Console.Write(" " + 1 + " ");
+                 else
+                     Console.Write(" " + 0 + " ");
+             }
+             Console.WriteLine();
+         }
     }
 }

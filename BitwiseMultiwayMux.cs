@@ -21,6 +21,7 @@ namespace Components
 
         //your code here
 
+        private BitwiseMux[] bitwiseMuxes;
         public BitwiseMultiwayMux(int iSize, int cControlBits)
         {
             Size = iSize;
@@ -31,11 +32,44 @@ namespace Components
             for (int i = 0; i < Inputs.Length; i++)
             {
                 Inputs[i] = new WireSet(Size);
-                
             }
-            
-            //your code here
 
+            //your code here
+            bitwiseMuxes = new BitwiseMux[(int)Math.Pow(2, cControlBits) - 1];
+            for(int i = 0; i < bitwiseMuxes.Length; i++)
+            {
+                bitwiseMuxes[i] = new BitwiseMux(Size);
+            }
+
+            /*The idea is that We'll connect every two inputs to mux and every mux will decide which one "wins"
+             * the next stage we'll remain with Size/2 inputs and we'll do the same on them, connect every two inputs to mux
+             * and so on, at the end we will have only two outputs "at the final" and we will connect them to mux that will decide who will be the winner input and he will be the output
+             * We'll connect the Inputs to the first bitwiseMuxes.length/2 bitwise muxeses.*/
+
+            for(int i = 0; i < bitwiseMuxes.Length/2 + 1; i = i + 2)
+            {
+                bitwiseMuxes[i].ConnectInput1(Inputs[i]);
+                bitwiseMuxes[i].ConnectInput2(Inputs[i+1]);
+            }
+
+
+            for(int i = bitwiseMuxes.Length / 2 + 1, j = 0; i < bitwiseMuxes.Length || j < Size / 2; i = i + 1, j = j + 2)
+            {
+                bitwiseMuxes[i].ConnectInput1(bitwiseMuxes[j].Output);
+                bitwiseMuxes[i].ConnectInput2(bitwiseMuxes[j + 1].Output);
+            }
+            Output.ConnectInput(bitwiseMuxes[bitwiseMuxes.Length - 1].Output);
+
+            //now we'll connect the controls to the mux gate
+            int muxCounter = 0;
+            for(int i = 0, j = (int)Math.Pow(2, Control.Size -1); i < Control.Size; i++, j = j / 2) 
+            {
+                for(int k = 0; k < j; k++)
+                {
+                    bitwiseMuxes[muxCounter].ConnectControl(Control[i]); 
+                    muxCounter++; 
+                }
+            }
         }
 
 
@@ -52,7 +86,64 @@ namespace Components
 
         public override bool TestGate()
         {
-            throw new NotImplementedException();
+            Boolean[] inputFixedSizeBinaryArray = new Boolean[Size];
+            for (int i = 0; i < Inputs.Length; i++)
+            {
+                for (int j = inputFixedSizeBinaryArray.Length - 1; j >= 0; j--)
+                {
+                    if(inputFixedSizeBinaryArray[j])
+                        Inputs[i][j].Value = 1;
+                    else
+                        Inputs[i][j].Value = 0;
+                }
+                IncrementBinaryArrays(inputFixedSizeBinaryArray);
+            }
+            Boolean[] outputFixedSizeBinaryArray = new Boolean[Size];
+            Boolean[] controlFixedSizeBinaryArray = new Boolean[Control.Size];
+            for (int i = 0; i < (int)Math.Pow(2, ControlBits); i++)
+            {
+                for(int j = 0; j < Control.Size; j++)
+                {
+                    if (controlFixedSizeBinaryArray[j])
+                        Control[j].Value = 1;
+                    else
+                        Control[j].Value = 0;
+                }
+
+                for (int k = 0; k < Size; k++)
+                {
+                    if (Output[k].Value != Inputs[i][k].Value)
+                        return false;
+                }
+                IncrementBinaryArrays(outputFixedSizeBinaryArray);
+                IncrementBinaryArrays(controlFixedSizeBinaryArray);
+            }
+            return true;
         }
+
+       private void IncrementBinaryArrays(Boolean[] fixedSizeBinaryArray)
+         {
+             Boolean isChanged = false;
+             int index = fixedSizeBinaryArray.Length - 1;
+             while (!isChanged && index >= 0)
+             {
+                 if (!fixedSizeBinaryArray[index])
+                 {
+                    fixedSizeBinaryArray[index] = !fixedSizeBinaryArray[index];
+                     isChanged = true;
+                 }
+                 else
+                 {
+                     while (index >= 0 && fixedSizeBinaryArray[index])
+                     {
+                        fixedSizeBinaryArray[index] = !fixedSizeBinaryArray[index];
+                         index--;
+                     }
+                     if(index != -1)
+                        fixedSizeBinaryArray[index] = !fixedSizeBinaryArray[index];
+                     isChanged = true;
+                 }
+             }
+         }
     }
 }

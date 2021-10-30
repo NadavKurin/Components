@@ -38,7 +38,7 @@ namespace Components
             m_gOr.ConnectInput1(m_gAnd1.Output);
             m_gOr.ConnectInput2(m_gAnd2.Output);
 
-            Output = m_gOr.Output;
+            Output.ConnectInput(m_gOr.Output);
             
         }
 
