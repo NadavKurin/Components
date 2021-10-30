@@ -53,7 +53,7 @@ namespace Components
             }
 
 
-            for(int i = bitwiseMuxes.Length / 2 + 1, j = 0; i < bitwiseMuxes.Length || j < Size / 2; i = i + 1, j = j + 2)
+            for(int i = bitwiseMuxes.Length / 2 + 1, j = 0; i < bitwiseMuxes.Length ; i = i + 1, j = j + 2)
             {
                 bitwiseMuxes[i].ConnectInput1(bitwiseMuxes[j].Output);
                 bitwiseMuxes[i].ConnectInput2(bitwiseMuxes[j + 1].Output);

@@ -20,7 +20,7 @@ namespace Components
         public WireSet[] Outputs { get; private set; }
 
         //your code here
-
+        private BitwiseDemux[] bitwiseDemuxes;
         public BitwiseMultiwayDemux(int iSize, int cControlBits)
         {
             Size = iSize;
@@ -32,6 +32,38 @@ namespace Components
                 Outputs[i] = new WireSet(Size);
             }
             //your code here
+            bitwiseDemuxes[0].ConnectInput(Input);
+            bitwiseDemuxes = new BitwiseDemux[(int)Math.Pow(2, cControlBits) - 1];
+            for (int i = 0; i < bitwiseDemuxes.Length; i++)
+            {
+                bitwiseDemuxes[i] = new BitwiseDemux(Size);
+            }
+
+            for (int i = Outputs.Length-1, j = bitwiseDemuxes.Length - 1; i >= 0; i = i - 2, j--) 
+            {
+                bitwiseDemuxes[j].Output1.ConnectInput(Outputs[i]);
+                bitwiseDemuxes[j].Output2.ConnectInput(Outputs[i - 1]);
+            }
+
+            
+            for (int i = 0; i < bitwiseDemuxes.Length / 2 - 1; i++)//i=0, i = 1, i = 2
+            {
+                bitwiseDemuxes[i*2 + 1].ConnectInput(bitwiseDemuxes[i].Output1);// d0 -> d1, d1 -> d3, d2 -> d5
+                bitwiseDemuxes[i*2 + 2].ConnectInput(bitwiseDemuxes[i].Output2);// d0 -> d2, d1 -> d4 d2 -> d6
+            }
+
+            //now we'll connect the controls to the demux gate
+            int controlNumber = Control.Size-1; 
+            int demuxCounter = 0; 
+            for (int i = 0, j = 1; i < Control.Size; i++, j = j * 2) 
+            {
+                for(int k = 0; k < j; k++)
+                {
+                    bitwiseDemuxes[demuxCounter].Control.ConnectInput(Control[controlNumber]);
+                    demuxCounter++;
+                }
+                controlNumber--; 
+            }
 
         }
 
