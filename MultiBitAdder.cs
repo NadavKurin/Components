@@ -17,6 +17,7 @@ namespace Components
         //An overflow bit for the summation computation
         public Wire Overflow { get; private set; }
 
+        private FullAdder[] fullAdders;
 
         public MultiBitAdder(int iSize)
         {
@@ -25,6 +26,32 @@ namespace Components
             Input2 = new WireSet(Size);
             Output = new WireSet(Size);
             //your code here
+
+            Overflow = new Wire();
+            fullAdders = new FullAdder[Size];
+
+            for (int i = 0; i < fullAdders.Length; i++)
+                fullAdders[i] = new FullAdder();
+
+            
+
+            for(int i = 0; i < Size; i++)
+            {
+                if(i == 0)
+                {
+                    fullAdders[0].CarryInput.ConnectInput(new Wire());
+                    fullAdders[0].ConnectInput1(Input1[0]);
+                    fullAdders[0].ConnectInput2(Input2[0]);
+                }
+                else
+                {
+                    fullAdders[i].CarryInput.ConnectInput(fullAdders[i-1].CarryOutput);
+                    fullAdders[i].ConnectInput1(Input1[i]);
+                    fullAdders[i].ConnectInput2(Input2[i]);
+                }
+                Overflow = fullAdders[Size - 1].CarryOutput;
+
+            }
 
         }
 
