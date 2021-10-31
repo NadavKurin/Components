@@ -191,7 +191,18 @@ namespace Components
                 Console.WriteLine("bugbug");
             NAndGate.Corrupt = false;
 
+            //Test FullAdder gate
+            FullAdder fullAdder = new FullAdder();
+            Console.WriteLine(fullAdder + "");
+            //Test that the unit testing works properly
+            if (!fullAdder.TestGate())
+                Console.WriteLine("Fulladder bugbug1");
 
+            //Now we ruin the nand gates that are used in all other gates. The gate should not work properly after this.
+            NAndGate.Corrupt = true;
+            if (fullAdder.TestGate())
+                Console.WriteLine("bugbug");
+            NAndGate.Corrupt = false;
 
             //Test BitwiseMultiwayMux gate
             BitwiseMultiwayMux bitwiseMultiwayMux = new BitwiseMultiwayMux(3, 3);
@@ -205,7 +216,17 @@ namespace Components
             //    Console.WriteLine("bugbug");
             //NAndGate.Corrupt = false;
 
+            ////Test BitwiseMultiwayDeMux gate
+            //BitwiseMultiwayDemux bitwiseMultiwayDemux = new BitwiseMultiwayDemux(3, 3);
+            ////Test that the unit testing works properly
+            //if (!bitwiseMultiwayDemux.TestGate())
+            //    Console.WriteLine("bugbug1");
 
+            ////Now we ruin the nand gates that are used in all other gates. The gate should not work properly after this.
+            ////NAndGate.Corrupt = true;
+            ////if (bitwiseMultiwayMux.TestGate())
+            ////    Console.WriteLine("bugbug");
+            ////NAndGate.Corrupt = false;
 
             Console.WriteLine("done");
             Console.ReadLine();
