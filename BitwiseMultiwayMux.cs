@@ -46,10 +46,10 @@ namespace Components
              * and so on, at the end we will have only two outputs "at the final" and we will connect them to mux that will decide who will be the winner input and he will be the output
              * We'll connect the Inputs to the first bitwiseMuxes.length/2 bitwise muxeses.*/
 
-            for(int i = 0; i < bitwiseMuxes.Length/2 + 1; i = i + 2)
+            for(int i = 0, j = 0; i < bitwiseMuxes.Length/2 + 1; i++, j = j + 2)
             {
-                bitwiseMuxes[i].ConnectInput1(Inputs[i]);
-                bitwiseMuxes[i].ConnectInput2(Inputs[i+1]);
+                bitwiseMuxes[i].ConnectInput1(Inputs[j]);
+                bitwiseMuxes[i].ConnectInput2(Inputs[j+1]);  
             }
 
 
@@ -91,14 +91,14 @@ namespace Components
             //setting the inputs
             for(int i = 0; i < Math.Pow(2,ControlBits); i++)
             {
-                int[] binaryI = Program.makeBinary(i, Size);
+                int[] binaryI = makeBinary(i, Size);
                 for (int j = 0; j < binaryI.Length; j++)
                     Inputs[i][j].Value = binaryI[j];
             }
 
             for(int i = 0; i < Math.Pow(2, ControlBits); i++)
             {
-                int[] binaryI = Program.makeBinary(i, ControlBits);
+                int[] binaryI = makeBinary(i, ControlBits);
                 for (int j = 0; j < binaryI.Length; j++) {
                     Control[i].Value = binaryI[j];
                 }
@@ -113,6 +113,19 @@ namespace Components
             return true;
         }
 
+
+        public static int[] makeBinary(int num, int length)
+        {
+            string b = Convert.ToString(num, 2);
+            while (b.Length < length)
+                b = "0" + b;
+
+            int[] binaryNumInArray = new int[length];
+            for (int i = 0; i < length; i++)
+                binaryNumInArray[i] = int.Parse(b[i].ToString());
+
+            return binaryNumInArray;
+        }
 
 
         // public override bool TestGate()

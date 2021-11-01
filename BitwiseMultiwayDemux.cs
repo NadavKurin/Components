@@ -35,32 +35,33 @@ namespace Components
             bitwiseDemuxes = new BitwiseDemux[(int)Math.Pow(2, cControlBits) - 1];
             for (int i = 0; i < bitwiseDemuxes.Length; i++)
             {
+
                 bitwiseDemuxes[i] = new BitwiseDemux(Size);
             }
-            bitwiseDemuxes[0].ConnectInput(Input);
 
-            for (int i = Outputs.Length-1, j = bitwiseDemuxes.Length - 1; i >= 0; i = i - 2, j--) 
+
+            for (int j = 0; j < Outputs.Length; j += 2)
             {
-                Outputs[i].ConnectInput(bitwiseDemuxes[j].Output1);
-                Outputs[i-1].ConnectInput(bitwiseDemuxes[j].Output2);
+                Outputs[j].ConnectInput(bitwiseDemuxes[j / 2].Output1);
+                Outputs[j+1].ConnectInput(bitwiseDemuxes[j / 2].Output2);
             }
 
-            
-            for (int i = 0; i < bitwiseDemuxes.Length / 2 - 1; i++)
+            for (int i = Outputs.Length/2, j = 0; i < Outputs.Length-1; i = i + 1, j = j + 2)
             {
-                bitwiseDemuxes[i*2 + 1].ConnectInput(bitwiseDemuxes[i].Output1);
-                bitwiseDemuxes[i*2 + 2].ConnectInput(bitwiseDemuxes[i].Output2);
+                bitwiseDemuxes[j].ConnectInput(bitwiseDemuxes[i].Output1);
+                bitwiseDemuxes[j+1].ConnectInput(bitwiseDemuxes[i].Output2);
             }
-            
+            bitwiseDemuxes[bitwiseDemuxes.Length - 1].ConnectInput(Input);
+
             //now we'll connect the controls to the demux gate
             int controlNumber = Control.Size-1; 
-            int demuxCounter = 0; 
+            int demuxNumber = bitwiseDemuxes.Length - 1; 
             for (int i = 0, j = 1; i < Control.Size; i++, j = j * 2) 
             {
                 for(int k = 0; k < j; k++)
                 {
-                    bitwiseDemuxes[demuxCounter].Control.ConnectInput(Control[controlNumber]);
-                    demuxCounter++;
+                    bitwiseDemuxes[demuxNumber].Control.ConnectInput(Control[controlNumber]);
+                    demuxNumber--;
                 }
                 controlNumber--; 
             }
@@ -83,14 +84,14 @@ namespace Components
             //setting the Outputs
             for (int i = 0; i < Math.Pow(2, ControlBits); i++)
             {
-                int[] binaryI = Program.makeBinary(i, Size);
+                int[] binaryI = makeBinary(i, Size);
                 for (int j = 0; j < binaryI.Length; j++)
                     Outputs[i][j].Value = binaryI[j];
             }
 
             for (int i = 0; i < Math.Pow(2, ControlBits); i++)
             {
-                int[] binaryI = Program.makeBinary(i, ControlBits);
+                int[] binaryI = makeBinary(i, ControlBits);
                 for (int j = 0; j < binaryI.Length; j++)
                 {
                     Control[i].Value = binaryI[j];
@@ -104,6 +105,20 @@ namespace Components
             }
 
             return true;
+        }
+
+
+        public static int[] makeBinary(int num, int length)
+        {
+            string b = Convert.ToString(num, 2);
+            while (b.Length < length)
+                b = "0" + b;
+
+            int[] binaryNumInArray = new int[length];
+            for (int i = 0; i < length; i++)
+                binaryNumInArray[i] = int.Parse(b[i].ToString());
+
+            return binaryNumInArray;
         }
     }
 }

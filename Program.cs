@@ -9,7 +9,7 @@ namespace Components
     {
         static void Main(string[] args)
         {
-
+            
             //This is an example of a testing code that you should run for all the gates that you create
          
             //Create a gate
@@ -206,7 +206,7 @@ namespace Components
 
 
             //Test BitwiseMultiwayDeMux gate
-            BitwiseMultiwayDemux bitwiseMultiwayDemux = new BitwiseMultiwayDemux(3, 3);
+            BitwiseMultiwayDemux bitwiseMultiwayDemux = new BitwiseMultiwayDemux(4, 4);
             //Test that the unit testing works properly
             if (!bitwiseMultiwayDemux.TestGate())
                 Console.WriteLine("bugbug1");
@@ -254,17 +254,19 @@ namespace Components
         // }
 
 
-        public static int[] makeBinary(int num, int length)
-        {
-            string b = Convert.ToString(num, 2);
-            while (b.Length < length)
-                b ="0"+b;
+        //public static int[] makeBinary(int num, int length)
+        //{
+        //    string b = Convert.ToString(num, 2);
+        //    while (b.Length < length)
+        //        b ="0"+b;
 
-            int[] binaryNumInArray = new int[length];
-            for (int i = 0; i < length; i++)
-                binaryNumInArray[i] = int.Parse(b[i].ToString());
+        //    int[] binaryNumInArray = new int[length];
+        //    for (int i = 0; i < length; i++)
+        //        binaryNumInArray[i] = int.Parse(b[i].ToString());
 
-            return binaryNumInArray;
-        }
+        //    return binaryNumInArray;
+        // }
+            
+
     }
 }

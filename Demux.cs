@@ -25,6 +25,8 @@ namespace Components
             and1 = new AndGate();
             and2 = new AndGate();
             not = new NotGate();
+            Output1 = new Wire();
+            Output2 = new Wire();
 
             //connect not conrol and input to and1 gate
             not.ConnectInput(Control);
@@ -36,8 +38,8 @@ namespace Components
             and2.ConnectInput1(Control);
             and2.ConnectInput2(Input);
 
-            Output1 = and1.Output;
-            Output2 = and2.Output;
+            Output1.ConnectInput(and1.Output);
+            Output2.ConnectInput(and2.Output);
         }
 
         public void ConnectControl(Wire wControl)
