@@ -84,66 +84,97 @@ namespace Components
 
 
 
+
         public override bool TestGate()
         {
-            Boolean[] inputFixedSizeBinaryArray = new Boolean[Size];
-            for (int i = 0; i < Inputs.Length; i++)
+
+            //setting the inputs
+            for(int i = 0; i < Math.Pow(2,ControlBits); i++)
             {
-                for (int j = inputFixedSizeBinaryArray.Length - 1; j >= 0; j--)
-                {
-                    if(inputFixedSizeBinaryArray[j])
-                        Inputs[i][j].Value = 1;
-                    else
-                        Inputs[i][j].Value = 0;
-                }
-                IncrementBinaryArrays(inputFixedSizeBinaryArray);
+                int[] binaryI = Program.makeBinary(i, Size);
+                for (int j = 0; j < binaryI.Length; j++)
+                    Inputs[i][j].Value = binaryI[j];
             }
-            Boolean[] outputFixedSizeBinaryArray = new Boolean[Size];
-            Boolean[] controlFixedSizeBinaryArray = new Boolean[Control.Size];
-            for (int i = 0; i < (int)Math.Pow(2, ControlBits); i++)
+
+            for(int i = 0; i < Math.Pow(2, ControlBits); i++)
             {
-                for(int j = 0; j < Control.Size; j++)
-                {
-                    if (controlFixedSizeBinaryArray[j])
-                        Control[j].Value = 1;
-                    else
-                        Control[j].Value = 0;
+                int[] binaryI = Program.makeBinary(i, ControlBits);
+                for (int j = 0; j < binaryI.Length; j++) {
+                    Control[i].Value = binaryI[j];
                 }
 
-                for (int k = 0; k < Size; k++)
+                for (int j = 0; j < Size; j++)
                 {
-                    if (Output[k].Value != Inputs[i][k].Value)
+                    if (Output[j].Value != Inputs[i][j].Value)
                         return false;
                 }
-                IncrementBinaryArrays(outputFixedSizeBinaryArray);
-                IncrementBinaryArrays(controlFixedSizeBinaryArray);
             }
+
             return true;
         }
 
-       private void IncrementBinaryArrays(Boolean[] fixedSizeBinaryArray)
-         {
-             Boolean isChanged = false;
-             int index = fixedSizeBinaryArray.Length - 1;
-             while (!isChanged && index >= 0)
-             {
-                 if (!fixedSizeBinaryArray[index])
-                 {
-                    fixedSizeBinaryArray[index] = !fixedSizeBinaryArray[index];
-                     isChanged = true;
-                 }
-                 else
-                 {
-                     while (index >= 0 && fixedSizeBinaryArray[index])
-                     {
-                        fixedSizeBinaryArray[index] = !fixedSizeBinaryArray[index];
-                         index--;
-                     }
-                     if(index != -1)
-                        fixedSizeBinaryArray[index] = !fixedSizeBinaryArray[index];
-                     isChanged = true;
-                 }
-             }
-         }
+
+
+        // public override bool TestGate()
+        // {
+        //     Boolean[] inputFixedSizeBinaryArray = new Boolean[Size];
+        //     for (int i = 0; i < Inputs.Length; i++)
+        //     {
+        //         for (int j = inputFixedSizeBinaryArray.Length - 1; j >= 0; j--)
+        //         {
+        //             if(inputFixedSizeBinaryArray[j])
+        //                 Inputs[i][j].Value = 1;
+        //             else
+        //                 Inputs[i][j].Value = 0;
+        //         }
+        //         IncrementBinaryArrays(inputFixedSizeBinaryArray);
+        //     }
+        //     Boolean[] outputFixedSizeBinaryArray = new Boolean[Size];
+        //     Boolean[] controlFixedSizeBinaryArray = new Boolean[Control.Size];
+        //     for (int i = 0; i < (int)Math.Pow(2, ControlBits); i++)
+        //     {
+        //         for(int j = 0; j < Control.Size; j++)
+        //         {
+        //             if (controlFixedSizeBinaryArray[j])
+        //                 Control[j].Value = 1;
+        //             else
+        //                 Control[j].Value = 0;
+        //         }
+
+        //         for (int k = 0; k < Size; k++)
+        //         {
+        //             if (Output[k].Value != Inputs[i][k].Value)
+        //                 return false;
+        //         }
+        //         IncrementBinaryArrays(outputFixedSizeBinaryArray);
+        //         IncrementBinaryArrays(controlFixedSizeBinaryArray);
+        //     }
+        //     return true;
+        // }
+
+        //private void IncrementBinaryArrays(Boolean[] fixedSizeBinaryArray)
+        //  {
+        //      Boolean isChanged = false;
+        //      int index = fixedSizeBinaryArray.Length - 1;
+        //      while (!isChanged && index >= 0)
+        //      {
+        //          if (!fixedSizeBinaryArray[index])
+        //          {
+        //             fixedSizeBinaryArray[index] = !fixedSizeBinaryArray[index];
+        //              isChanged = true;
+        //          }
+        //          else
+        //          {
+        //              while (index >= 0 && fixedSizeBinaryArray[index])
+        //              {
+        //                 fixedSizeBinaryArray[index] = !fixedSizeBinaryArray[index];
+        //                  index--;
+        //              }
+        //              if(index != -1)
+        //                 fixedSizeBinaryArray[index] = !fixedSizeBinaryArray[index];
+        //              isChanged = true;
+        //          }
+        //      }
+        //  }
     }
 }

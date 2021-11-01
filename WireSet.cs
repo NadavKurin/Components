@@ -45,7 +45,7 @@ namespace Components
         {
             int num = iValue;
             int i = 0;
-            while (num >= 2 && i < Size)
+            while (num >=0 && i < Size)
             {
                 if (num % 2 == 0)
                     m_aWires[i].Value = 0;

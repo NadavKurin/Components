@@ -80,7 +80,30 @@ namespace Components
 
         public override bool TestGate()
         {
-            throw new NotImplementedException();
+            //setting the Outputs
+            for (int i = 0; i < Math.Pow(2, ControlBits); i++)
+            {
+                int[] binaryI = Program.makeBinary(i, Size);
+                for (int j = 0; j < binaryI.Length; j++)
+                    Outputs[i][j].Value = binaryI[j];
+            }
+
+            for (int i = 0; i < Math.Pow(2, ControlBits); i++)
+            {
+                int[] binaryI = Program.makeBinary(i, ControlBits);
+                for (int j = 0; j < binaryI.Length; j++)
+                {
+                    Control[i].Value = binaryI[j];
+                }
+
+                for (int j = 0; j < Size; j++)
+                {
+                    if (Input[j].Value != Outputs[i][j].Value)
+                        return false;
+                }
+            }
+
+            return true;
         }
     }
 }

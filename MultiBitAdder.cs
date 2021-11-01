@@ -72,7 +72,7 @@ namespace Components
 
         public override bool TestGate()
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }
