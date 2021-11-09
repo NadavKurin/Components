@@ -215,58 +215,7 @@ namespace Components
             Console.WriteLine("done");
             Console.ReadLine();
 
-        }
-
-        //static void IncrementBinaryArrays(Boolean[] FixedSizeBinaryArray)
-        // {
-        //     Boolean isChanged = false;
-        //     int index = FixedSizeBinaryArray.Length - 1;
-        //     while (!isChanged)
-        //     {
-        //         if (!FixedSizeBinaryArray[index])
-        //         {
-        //             FixedSizeBinaryArray[index] = !FixedSizeBinaryArray[index];
-        //             isChanged = true;
-        //         }
-        //         else
-        //         {
-        //             while (FixedSizeBinaryArray[index])
-        //             {
-        //                 FixedSizeBinaryArray[index] = !FixedSizeBinaryArray[index];
-        //                 index--;
-        //             }
-        //             FixedSizeBinaryArray[index] = !FixedSizeBinaryArray[index];
-        //             isChanged = true;
-        //         }
-        //     }
-        // }
-
-        // static void PrintBoolArr(Boolean[] arr)
-        // {
-        //     for(int i = 0; i < arr.Length; i++)
-        //     {
-        //         if (arr[i])
-        //             Console.Write(" " + 1 + " ");
-        //         else
-        //             Console.Write(" " + 0 + " ");
-        //     }
-        //     Console.WriteLine();
-        // }
-
-
-        //public static int[] makeBinary(int num, int length)
-        //{
-        //    string b = Convert.ToString(num, 2);
-        //    while (b.Length < length)
-        //        b ="0"+b;
-
-        //    int[] binaryNumInArray = new int[length];
-        //    for (int i = 0; i < length; i++)
-        //        binaryNumInArray[i] = int.Parse(b[i].ToString());
-
-        //    return binaryNumInArray;
-        // }
-            
+        }    
 
     }
 }
