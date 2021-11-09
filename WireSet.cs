@@ -10,7 +10,7 @@ namespace Components
     {
         //Word size - number of bits in the register
         public int Size { get; private set; }
-        
+
         public bool InputConected { get; private set; }
 
         //An indexer providing access to a single wire in the wireset
@@ -22,7 +22,7 @@ namespace Components
             }
         }
         private Wire[] m_aWires;
-        
+
         public WireSet(int iSize)
         {
             Size = iSize;
@@ -45,7 +45,7 @@ namespace Components
         {
             int num = iValue;
             int i = 0;
-            while (num >=0 && i < Size)
+            while (num >= 0 && i < Size)
             {
                 if (num % 2 == 0)
                     m_aWires[i].Value = 0;
@@ -66,29 +66,112 @@ namespace Components
         }
 
         //Transform an integer value into binary using 2`s complement and set the wires accordingly, with 0 being the LSB
+        //Transform an integer value into binary using 2`s complement and set the wires accordingly, with 0 being the LSB
         public void Set2sComplement(int iValue)
         {
-            throw new NotImplementedException();
+            if (iValue >= 0)
+                SetValue(iValue);
+            else
+            {
+                int posVal = iValue * (-1);
+                SetValue(posVal);
+                for (int i = 0; i < m_aWires.Length; i++)
+                {
+                    if (m_aWires[i].Value == 0)
+                        m_aWires[i].Value = 1;
+                    else
+                        m_aWires[i].Value = 0;
+                }
+                WireSet one = new WireSet(Size);
+                one.SetValue(1);
+                MultiBitAdder add = new MultiBitAdder(Size);
+                add.ConnectInput1(this);
+                add.ConnectInput2(one);
+                for (int i = 0; i < m_aWires.Length; i++)
+                {
+                    m_aWires[i] = add.Output[i];
+                }
+            }
         }
 
         //Transform the binary code in 2`s complement into an integer
         public int Get2sComplement()
         {
-            throw new NotImplementedException();
+            if (m_aWires[m_aWires.Length - 1].Value == 0)
+                return GetValue();
+            else
+            {
+                for (int i = 0; i < m_aWires.Length; i++)
+                {
+                    if (m_aWires[i].Value == 0)
+                        m_aWires[i].Value = 1;
+                    else
+                        m_aWires[i].Value = 0;
+                }
+                WireSet one = new WireSet(Size);
+                one.SetValue(1);
+                MultiBitAdder add = new MultiBitAdder(Size);
+                add.ConnectInput1(this);
+                add.ConnectInput2(one);
+                for (int i = 0; i < m_aWires.Length; i++)
+                {
+                    m_aWires[i] = add.Output[i];
+                }
+                int x = GetValue();
+                return x * -1;
+            }
         }
 
         public void ConnectInput(WireSet wIn)
         {
             if (InputConected)
                 throw new InvalidOperationException("Cannot connect a wire to more than one inputs");
-            if(wIn.Size != Size)
+            if (wIn.Size != Size)
                 throw new InvalidOperationException("Cannot connect two wiresets of different sizes.");
             for (int i = 0; i < m_aWires.Length; i++)
                 m_aWires[i].ConnectInput(wIn[i]);
 
             InputConected = true;
-            
+
         }
 
+        public bool testSet2sComp()
+        {
+            //Tests 2complements methods
+            int i;
+            Set2sComplement(4);
+            if (m_aWires[0].Value != 0 | m_aWires[1].Value != 0 | m_aWires[2].Value != 1 | m_aWires[3].Value != 0)
+                return false;
+            i = Get2sComplement();
+            if (i != 4)
+                return false;
+            Set2sComplement(-4);
+            if (m_aWires[0].Value != 0 | m_aWires[1].Value != 0 | m_aWires[2].Value != 1 | m_aWires[3].Value != 1)
+                return false;
+            i = Get2sComplement();
+            if (i != -4)
+                return false;
+
+            Set2sComplement(7);
+            if (m_aWires[0].Value != 1 | m_aWires[1].Value != 1 | m_aWires[2].Value != 1 | m_aWires[3].Value != 0)
+                return false;
+            i = Get2sComplement();
+            if (i != 7)
+                return false;
+            Set2sComplement(-7);
+            if (m_aWires[0].Value != 1 | m_aWires[1].Value != 0 | m_aWires[2].Value != 0 | m_aWires[3].Value != 1)
+                return false;
+            i = Get2sComplement();
+            if (i != -7)
+                return false;
+            Set2sComplement(-8);
+            if (m_aWires[0].Value != 0 | m_aWires[1].Value != 0 | m_aWires[2].Value != 0 | m_aWires[3].Value != 1)
+                return false;
+            i = Get2sComplement();
+            if (i != -8)
+                return false;
+
+            return true;
+        }
     }
-}
+} 

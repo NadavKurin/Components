@@ -42,17 +42,18 @@ namespace Components
                     fullAdders[0].CarryInput.ConnectInput(new Wire());
                     fullAdders[0].ConnectInput1(Input1[0]);
                     fullAdders[0].ConnectInput2(Input2[0]);
+                    Output[0].ConnectInput(fullAdders[0].Output);
                 }
                 else
                 {
                     fullAdders[i].CarryInput.ConnectInput(fullAdders[i-1].CarryOutput);
                     fullAdders[i].ConnectInput1(Input1[i]);
                     fullAdders[i].ConnectInput2(Input2[i]);
+                    Output[i].ConnectInput(fullAdders[i].Output);
                 }
-                Overflow = fullAdders[Size - 1].CarryOutput;
-
+               
             }
-
+            Overflow = fullAdders[Size - 1].CarryOutput;
         }
 
         public override string ToString()
@@ -68,7 +69,6 @@ namespace Components
         {
             Input2.ConnectInput(wInput);
         }
-
 
         public override bool TestGate()
         {

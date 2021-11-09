@@ -212,6 +212,10 @@ namespace Components
                 Console.WriteLine("bugbug1");
 
 
+            WireSet w = new WireSet(4);
+            if(!w.testSet2sComp())
+                Console.WriteLine("bugbug1");
+
             Console.WriteLine("done");
             Console.ReadLine();
 

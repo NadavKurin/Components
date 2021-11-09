@@ -24,3 +24,16 @@ C:\Users\nadav\Visual Studio Projects\Components\bin\Debug\netcoreapp3.1\Compone
 C:\Users\nadav\Visual Studio Projects\Components\bin\Debug\netcoreapp3.1\Components.dll
 C:\Users\nadav\Visual Studio Projects\Components\bin\Debug\netcoreapp3.1\Components.pdb
 C:\Users\nadav\Visual Studio Projects\Components\obj\Debug\netcoreapp3.1\Components.genruntimeconfig.cache
+C:\Users\nadav\Visual Studio Projects\New folder\Components\bin\Debug\netcoreapp3.1\Components.exe
+C:\Users\nadav\Visual Studio Projects\New folder\Components\bin\Debug\netcoreapp3.1\Components.deps.json
+C:\Users\nadav\Visual Studio Projects\New folder\Components\bin\Debug\netcoreapp3.1\Components.runtimeconfig.json
+C:\Users\nadav\Visual Studio Projects\New folder\Components\bin\Debug\netcoreapp3.1\Components.runtimeconfig.dev.json
+C:\Users\nadav\Visual Studio Projects\New folder\Components\bin\Debug\netcoreapp3.1\Components.dll
+C:\Users\nadav\Visual Studio Projects\New folder\Components\bin\Debug\netcoreapp3.1\Components.pdb
+C:\Users\nadav\Visual Studio Projects\New folder\Components\obj\Debug\netcoreapp3.1\Components.csproj.AssemblyReference.cache
+C:\Users\nadav\Visual Studio Projects\New folder\Components\obj\Debug\netcoreapp3.1\Components.AssemblyInfoInputs.cache
+C:\Users\nadav\Visual Studio Projects\New folder\Components\obj\Debug\netcoreapp3.1\Components.AssemblyInfo.cs
+C:\Users\nadav\Visual Studio Projects\New folder\Components\obj\Debug\netcoreapp3.1\Components.csproj.CoreCompileInputs.cache
+C:\Users\nadav\Visual Studio Projects\New folder\Components\obj\Debug\netcoreapp3.1\Components.dll
+C:\Users\nadav\Visual Studio Projects\New folder\Components\obj\Debug\netcoreapp3.1\Components.pdb
+C:\Users\nadav\Visual Studio Projects\New folder\Components\obj\Debug\netcoreapp3.1\Components.genruntimeconfig.cache
