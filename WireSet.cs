@@ -83,13 +83,13 @@ namespace Components
                         m_aWires[i].Value = 0;
                 }
                 WireSet one = new WireSet(Size);
-                one.SetValue(1);
+                one[0].Value = 1;
                 MultiBitAdder add = new MultiBitAdder(Size);
                 add.ConnectInput1(this);
                 add.ConnectInput2(one);
                 for (int i = 0; i < m_aWires.Length; i++)
                 {
-                    m_aWires[i] = add.Output[i];
+                    m_aWires[i].ConnectOutput(add.Output[i]);
                 }
             }
         }
@@ -109,13 +109,13 @@ namespace Components
                         m_aWires[i].Value = 0;
                 }
                 WireSet one = new WireSet(Size);
-                one.SetValue(1);
+                one[0].Value = 1;
                 MultiBitAdder add = new MultiBitAdder(Size);
                 add.ConnectInput1(this);
                 add.ConnectInput2(one);
                 for (int i = 0; i < m_aWires.Length; i++)
                 {
-                    m_aWires[i] = add.Output[i];
+                    m_aWires[i].ConnectOutput(add.Output[i]);
                 }
                 int x = GetValue();
                 return x * -1;
