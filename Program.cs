@@ -218,7 +218,7 @@ namespace Components
 
             //Console.WriteLine("done");
             //Console.ReadLine();
-            ALU alue = new ALU(2);
+            ALU alue = new ALU(6);
 
         }    
 

@@ -49,6 +49,7 @@ namespace Components
             InputX = new WireSet(Size); // connect directly to main mux
             InputY = new WireSet(Size); // connect directly to main mux
             Control = new WireSet(6);
+            Negative = new Wire();
             Zero = new Wire();
             Output = new WireSet(Size);
             One = new WireSet(Size); // connect to main mux
@@ -146,9 +147,9 @@ namespace Components
             bitwiseXorY.ConnectInput2(InputY);
             mainMux.ConnectInput(17, bitwiseXorY.Output);
 
-            bitwiseXorY.ConnectInput1(InputX);
-            bitwiseXorY.ConnectInput2(InputY);
-            mainMux.ConnectInput(18, bitwiseXorY.Output);
+            logicXorY.ConnectInput1(InputX);
+            logicXorY.ConnectInput2(InputY);
+            mainMux.ConnectInput(18, logicXorY.Output);
 
             Output.ConnectInput(mainMux.Output);
 

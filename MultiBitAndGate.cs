@@ -9,31 +9,22 @@ namespace Components
     class MultiBitAndGate : MultiBitGate
     {
         //your code here
-        private List<AndGate> andGates;
+        private AndGate[] andGates;
         public MultiBitAndGate(int iInputCount)
             : base(iInputCount)
         {
             //your code here
-            andGates = new List<AndGate>();
-            
-            for (int i = 1; i < base.m_wsInput.Size-1; i++)
+            andGates = new AndGate[iInputCount -1];
+            Wire currentRes = m_wsInput[0];
+            for (int i = 0; i < base.m_wsInput.Size - 1; i++)
             {
-                if (i == 1)
-                {
-                    andGates.Add(new AndGate());
-                    andGates.Last().ConnectInput1(base.m_wsInput[0]);
-                    andGates.Last().ConnectInput2(base.m_wsInput[1]);
-                }
-                else
-                {
-                    andGates.Add(new AndGate());
-                    andGates.Last().ConnectInput1(andGates[i-2].Output);
-                    andGates.Last().ConnectInput2(base.m_wsInput[i + 1]);
-                }
-                
+                andGates[i] = new AndGate();
+                andGates[i].ConnectInput1(currentRes);
+                andGates[i].ConnectInput2(m_wsInput[i + 1]);
+                currentRes = andGates[i].Output;
             }
 
-            Output = andGates.Last().Output;
+            Output = currentRes;
         }
 
         public override string ToString()

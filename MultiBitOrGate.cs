@@ -10,32 +10,22 @@ namespace Components
     class MultiBitOrGate : MultiBitGate
     {
         //your code here
-        private List<OrGate> orGates;
+        private OrGate[] orGates;
         public MultiBitOrGate(int iInputCount)
             : base(iInputCount)
         {
             //your code here
-            orGates = new List<OrGate>();
-
-            for (int i = 1; i < base.m_wsInput.Size - 1; i++)
+            orGates = new OrGate[iInputCount - 1];
+            Wire currentRes = m_wsInput[0];
+            for (int i = 0; i < base.m_wsInput.Size - 1; i++)
             {
-                if (i == 1)
-                {
-                    orGates.Add(new OrGate());
-                    orGates.Last().ConnectInput1(base.m_wsInput[0]);
-                    orGates.Last().ConnectInput2(base.m_wsInput[1]);
-                }
-                else
-                {
-                    orGates.Add(new OrGate());
-                    orGates.Last().ConnectInput1(orGates[i - 2].Output);
-                    orGates.Last().ConnectInput2(base.m_wsInput[i + 1]);
-                }
-
+                    orGates[i] = new OrGate();
+                    orGates[i].ConnectInput1(currentRes);
+                    orGates[i].ConnectInput2(m_wsInput[i + 1]);
+                    currentRes = orGates[i].Output;
             }
 
-            Output = orGates.Last().Output;
-
+            Output = currentRes;
         }
 
         public override string ToString()
