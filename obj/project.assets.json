@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nadav\\Visual Studio Projects\\New folder\\Components\\Components.csproj",
+      "projectUniqueName": "C:\\Users\\nadav\\Visual Studio Projects\\Components\\Components.csproj",
       "projectName": "Components",
-      "projectPath": "C:\\Users\\nadav\\Visual Studio Projects\\New folder\\Components\\Components.csproj",
+      "projectPath": "C:\\Users\\nadav\\Visual Studio Projects\\Components\\Components.csproj",
       "packagesPath": "C:\\Users\\nadav\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nadav\\Visual Studio Projects\\New folder\\Components\\obj\\",
+      "outputPath": "C:\\Users\\nadav\\Visual Studio Projects\\Components\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nadav\\AppData\\Roaming\\NuGet\\NuGet.Config",
