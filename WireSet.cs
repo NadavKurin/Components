@@ -82,17 +82,21 @@ namespace Components
                     else
                         m_aWires[i].Value = 0;
                 }
-                WireSet one = new WireSet(Size);
-                one[0].Value = 1;
-                MultiBitAdder add = new MultiBitAdder(Size);
-                add.ConnectInput1(this);
-                add.ConnectInput2(one);
-                for (int i = 0; i < m_aWires.Length; i++)
+                for(int i=0;i<m_aWires.Length;i++)
                 {
-                    m_aWires[i].ConnectOutput(add.Output[i]);
+                    if(m_aWires[i].Value==0)
+                    {
+                        m_aWires[i].Value = 1;
+                        break;
+                    }
+                    else
+                        m_aWires[i].Value = 0;
                 }
             }
         }
+
+
+        // 1111 int value = -2^(arr.length-1)
 
         //Transform the binary code in 2`s complement into an integer
         public int Get2sComplement()
@@ -115,7 +119,7 @@ namespace Components
                 add.ConnectInput2(one);
                 for (int i = 0; i < m_aWires.Length; i++)
                 {
-                    m_aWires[i].ConnectOutput(add.Output[i]);
+                    m_aWires[i].ConnectInput(add.Output[i]);
                 }
                 int x = GetValue();
                 return x * -1;
