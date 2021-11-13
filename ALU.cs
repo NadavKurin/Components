@@ -132,7 +132,7 @@ namespace Components
             mainMux.ConnectInput(14, adder.Output);
 
             xyBitwiseAnd.ConnectInput1(InputX);
-            xyBitwiseAnd.ConnectInput1(InputY);
+            xyBitwiseAnd.ConnectInput2(InputY);
             mainMux.ConnectInput(15, xyBitwiseAnd.Output);
 
             multiOrX.ConnectInput(InputX);
@@ -158,14 +158,13 @@ namespace Components
             notZr.ConnectInput(zr.Output);
             Zero.ConnectInput(notZr.Output);
 
-            if (Output[Size - 1].Value == 1)
-                Negative.Value = 1;
-
+            Negative.ConnectInput(Output[Size - 1]);
         }
 
-        public override bool TestGate()
-        {
-            throw new NotImplementedException();
-        }
+        //public override bool TestGate()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
     }
 }
