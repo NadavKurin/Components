@@ -73,12 +73,12 @@ namespace Components
             logicXorY = new BitwiseOrGate(iSize);// connect to main mux
 
             //Create and connect all the internal components
-
+            mainMux.ConnectControl(Control);
             mainMux.ConnectInput(0, ZeroBits);
             mainMux.ConnectInput(1, One);
             mainMux.ConnectInput(2, InputX);
             mainMux.ConnectInput(3, InputY);
-
+            
             notX.ConnectInput(InputX);
             notY.ConnectInput(InputY);
             mainMux.ConnectInput(4, notX.Output);
@@ -161,10 +161,10 @@ namespace Components
             Negative.ConnectInput(Output[Size - 1]);
         }
 
-        //public override bool TestGate()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public override bool TestGate()
+        {
+            throw new NotImplementedException();
+        }
 
     }
 }
