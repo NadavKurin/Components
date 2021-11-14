@@ -43,6 +43,8 @@ namespace Components
         //Transform a positive integer value into binary and set the wires accordingly, with 0 being the LSB
         public void SetValue(int iValue)
         {
+            for (int j = 0; j < m_aWires.Length; j++)
+                m_aWires[j].Value = 0;
             int num = iValue;
             int i = 0;
             while (num >= 0 && i < Size)
@@ -105,24 +107,14 @@ namespace Components
                 return GetValue();
             else
             {
-                for (int i = 0; i < m_aWires.Length; i++)
+                int output = -1*(int)Math.Pow(2, m_aWires.Length - 1);
+                for (int i = 0; i < m_aWires.Length-1; i++)
                 {
-                    if (m_aWires[i].Value == 0)
-                        m_aWires[i].Value = 1;
-                    else
-                        m_aWires[i].Value = 0;
+                    if (m_aWires[i].Value == 1)
+                        output += (int)Math.Pow(2, i);
                 }
-                WireSet one = new WireSet(Size);
-                one[0].Value = 1;
-                MultiBitAdder add = new MultiBitAdder(Size);
-                add.ConnectInput1(this);
-                add.ConnectInput2(one);
-                for (int i = 0; i < m_aWires.Length; i++)
-                {
-                    m_aWires[i].ConnectInput(add.Output[i]);
-                }
-                int x = GetValue();
-                return x * -1;
+               
+                return output;
             }
         }
 

@@ -18,7 +18,7 @@ namespace Components
         public Wire Overflow { get; private set; }
 
         private FullAdder[] fullAdders;
-
+        
         public MultiBitAdder(int iSize)
         {
             Size = iSize;

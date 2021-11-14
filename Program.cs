@@ -219,7 +219,9 @@ namespace Components
             //Console.WriteLine("done");
             //Console.ReadLine();
             ALU alue = new ALU(6);
-
+            WireSet set = new WireSet(6);
+            set.Set2sComplement(-20);
+            Console.WriteLine(set);
         }    
 
     }
