@@ -38,7 +38,7 @@ namespace Components
         public BitwiseAndGate xyBitwiseAnd { get; private set;}
         public MultiBitOrGate multiOrX { get; private set; }
         public MultiBitOrGate multiOrY { get; private set; }
-        public AndGate logicXYRes { get; private set; }
+        public AndGate logicAndXYRes { get; private set; }
         public WireSet logicXY { get; private set; }
         public BitwiseOrGate bitwiseXorY { get; private set; }
         public BitwiseOrGate logicXorY { get; private set; }
@@ -48,7 +48,7 @@ namespace Components
             Size = iSize;
             InputX = new WireSet(Size); // connect directly to main mux
             InputY = new WireSet(Size); // connect directly to main mux
-            Control = new WireSet(6);
+            Control = new WireSet(5);
             Negative = new Wire();
             Zero = new Wire();
             Output = new WireSet(Size);
@@ -69,7 +69,7 @@ namespace Components
             multiOrX = new MultiBitOrGate(iSize);// connect to logicXYRes
             multiOrY = new MultiBitOrGate(iSize);
             logicXY = new WireSet(iSize);
-            logicXYRes = new AndGate();// connect to main mux
+            logicAndXYRes = new AndGate();// connect to main mux
             bitwiseXorY = new BitwiseOrGate(iSize);// connect to main mux
             logicXorY = new BitwiseOrGate(iSize);// connect to main mux
 
@@ -138,9 +138,9 @@ namespace Components
 
             multiOrX.ConnectInput(InputX);
             multiOrY.ConnectInput(InputY);
-            logicXYRes.ConnectInput1(multiOrX.Output);
-            logicXYRes.ConnectInput2(multiOrY.Output);
-            logicXY[0].ConnectInput(logicXYRes.Output);
+            logicAndXYRes.ConnectInput1(multiOrX.Output);
+            logicAndXYRes.ConnectInput2(multiOrY.Output);
+            logicXY[0].ConnectInput(logicAndXYRes.Output);
             mainMux.ConnectInput(16, logicXY);
 
             bitwiseXorY.ConnectInput1(InputX);
