@@ -218,10 +218,13 @@ namespace Components
 
             //Console.WriteLine("done");
             //Console.ReadLine();
-            ALU alue = new ALU(6);
-            WireSet set = new WireSet(6);
-            set.Set2sComplement(-20);
-            Console.WriteLine(set);
+            //ALU alue = new ALU(6);
+            //WireSet set = new WireSet(6);
+            //set.Set2sComplement(-20);
+            //Console.WriteLine(set);
+            SingleBitRegister sb = new SingleBitRegister();
+            if (!sb.TestGate())
+                Console.WriteLine("singe bit register test failed");
         }    
 
     }

@@ -13,12 +13,25 @@ namespace Components
         //A bit setting the register operation to read or write
         public Wire Load { get; private set; }
 
+        public DFlipFlopGate dff {get; private set;}
+        public MuxGate mux { get; private set; }
         public SingleBitRegister()
         {
             
             Input = new Wire();
             Load = new Wire();
             //your code here 
+
+            mux = new MuxGate();
+            dff = new DFlipFlopGate();
+
+            mux.ConnectInput1(dff.Output);
+            mux.ConnectInput2(Input);
+            mux.ConnectControl(Load);
+
+            dff.ConnectInput(mux.Output);
+
+            Output = dff.Output;
 
         }
 
@@ -37,7 +50,27 @@ namespace Components
 
         public override bool TestGate()
         {
-            throw new NotImplementedException();
+
+            Load.Value = 1;
+            Input.Value = 0;
+            Clock.ClockDown();
+            Clock.ClockUp();
+            if (Output.Value != 0)
+                return false;
+            Load.Value = 0;
+            Input.Value = 1;
+            Clock.ClockDown();
+            Clock.ClockUp();
+            if (Output.Value != 0)
+                return false;
+            Load.Value = 1;
+            Input.Value = 1;
+            Clock.ClockDown();
+            Clock.ClockUp();
+            if (Output.Value != 1)
+                return false;
+            return true;
+           
         }
     }
 }

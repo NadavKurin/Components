@@ -28,32 +28,35 @@ namespace Components
             //your code here
 
             Overflow = new Wire();
-            fullAdders = new FullAdder[Size];
+            HalfAdder ha = new HalfAdder();
+            fullAdders = new FullAdder[Size-1];
 
             for (int i = 0; i < fullAdders.Length; i++)
                 fullAdders[i] = new FullAdder();
 
-            
+            ha.ConnectInput1(Input1[0]);
+            ha.ConnectInput2(Input2[0]);
+            Output[0].ConnectInput(ha.Output);
 
-            for(int i = 0; i < Size; i++)
+            for (int i = 0; i < fullAdders.Length; i++)
             {
                 if(i == 0)
                 {
-                    fullAdders[0].CarryInput.ConnectInput(new Wire());
-                    fullAdders[0].ConnectInput1(Input1[0]);
-                    fullAdders[0].ConnectInput2(Input2[0]);
-                    Output[0].ConnectInput(fullAdders[0].Output);
+                    fullAdders[i].CarryInput.ConnectInput(ha.CarryOutput);
+                    fullAdders[i].ConnectInput1(Input1[i+1]);
+                    fullAdders[i].ConnectInput2(Input2[i+1]);
+                    Output[i+1].ConnectInput(fullAdders[i].Output);
                 }
                 else
                 {
                     fullAdders[i].CarryInput.ConnectInput(fullAdders[i-1].CarryOutput);
-                    fullAdders[i].ConnectInput1(Input1[i]);
-                    fullAdders[i].ConnectInput2(Input2[i]);
-                    Output[i].ConnectInput(fullAdders[i].Output);
+                    fullAdders[i].ConnectInput1(Input1[i+1]);
+                    fullAdders[i].ConnectInput2(Input2[i+1]);
+                    Output[i+1].ConnectInput(fullAdders[i].Output);
                 }
                
             }
-            Overflow = fullAdders[Size - 1].CarryOutput;
+            Overflow.ConnectInput(fullAdders[fullAdders.Length-1].CarryOutput);
         }
 
         public override string ToString()
