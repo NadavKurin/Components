@@ -80,7 +80,11 @@ namespace Components
 
         public override bool TestGate()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < mbr.Length; i++)
+            {
+                return mbr[i].TestGate();
+            }
+            return true;
         }
     }
 }

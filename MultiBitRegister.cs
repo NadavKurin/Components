@@ -51,7 +51,11 @@ namespace Components
 
         public override bool TestGate()
         {
-            throw new NotImplementedException();
+            for(int i = 0; i < Size; i++)
+            {
+                return sb[i].TestGate();
+            }
+            return true;
         }
     }
 }
