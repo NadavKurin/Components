@@ -16,6 +16,7 @@ namespace Components
         //Word size - number of bits in the register
         public int Size { get; private set; }
 
+        public SingleBitRegister[] sb { get; private set;}
 
         public MultiBitRegister(int iSize)
         {
@@ -24,6 +25,15 @@ namespace Components
             Output = new WireSet(Size);
             Load = new Wire();
             //your code here
+            sb = new SingleBitRegister[iSize];
+
+            for(int i = 0; i < iSize; i++)
+            {
+                sb[i] = new SingleBitRegister();
+                sb[i].ConnectLoad(Load);
+                sb[i].ConnectInput(Input[i]);
+                Output[i].ConnectInput(sb[i].Output);
+            }
 
         }
 

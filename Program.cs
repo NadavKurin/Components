@@ -222,9 +222,11 @@ namespace Components
             //WireSet set = new WireSet(6);
             //set.Set2sComplement(-20);
             //Console.WriteLine(set);
-            SingleBitRegister sb = new SingleBitRegister();
-            if (!sb.TestGate())
-                Console.WriteLine("singe bit register test failed");
+            //SingleBitRegister sb = new SingleBitRegister();
+            //if (!sb.TestGate())
+            //    Console.WriteLine("singe bit register test failed");
+            MultiBitRegister mbr = new MultiBitRegister(4);
+            Memory m = new Memory(4, 4);
         }    
 
     }

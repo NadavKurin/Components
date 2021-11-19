@@ -70,7 +70,6 @@ namespace Components
             if (Output.Value != 1)
                 return false;
             return true;
-           
         }
     }
 }

@@ -23,6 +23,9 @@ namespace Components
 
         //your code here
 
+        public BitwiseMultiwayDemux demux { get; private set; }
+        public BitwiseMultiwayMux mux { get; private set; }
+        public MultiBitRegister[] mbr { get; private set; }
         public Memory(int iAddressSize, int iWordSize)
         {
             AddressSize = iAddressSize;
@@ -34,7 +37,22 @@ namespace Components
             Load = new Wire();
 
             //your code here
-
+            demux = new BitwiseMultiwayDemux(1, iAddressSize);
+            mux = new BitwiseMultiwayMux(iWordSize, iAddressSize);
+            WireSet loadWS = new WireSet(1);
+            loadWS[0].ConnectInput(Load);
+            demux.ConnectInput(loadWS);
+            demux.ConnectControl(Address);
+            mux.ConnectControl(Address);
+            mbr = new MultiBitRegister[(int)Math.Pow(2, iAddressSize)];
+            for(int i = 0; i < mbr.Length; i++)
+            {
+                mbr[i] = new MultiBitRegister(iWordSize);
+                mbr[i].ConnectInput(Input);
+                mbr[i].Load.ConnectInput(demux.Outputs[i][0]);
+                mux.ConnectInput(i, mbr[i].Output);
+            }
+            Output.ConnectInput(mux.Output);
         }
 
         public void ConnectInput(WireSet wsInput)
